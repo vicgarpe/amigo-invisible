@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Actualizar Archivo de Asignaciones
-      run: echo "Nueva asignación: [AQUI VA TU CONTENIDO]" > asignaciones.txt
+      run: echo "Esto es; una prueba; asinada" > asignaciones.txt
 
     - name: Commit y Push Cambios
       run: |
