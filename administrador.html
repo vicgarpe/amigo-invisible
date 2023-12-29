@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Amigo Invisible</title>
+</head>
+<body>
+    <h1>Panel de Administración - Amigo Invisible</h1>
+    <button onclick="ejecutarWorkflow()">Ejecutar Flujo de Trabajo</button>
+
+    <script>
+     function ejecutarWorkflow() {
+         // Definir la información necesaria
+         const repoOwner = 'nombre_usuario';
+         const repoName = 'nombre_repositorio';
+         const workflowName = 'actualiza-asignaciones';
+         const githubtoken = 'tu_token_de_acceso_personal';
+
+
+         // URL de la API de GitHub Actions para desencadenar manualmente un flujo de trabajo
+         const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/actions/workflows/${workflowName}/dispatches`;
+
+         // Datos para la solicitud POST
+         const requestData = {
+             ref: 'main', // Puedes cambiar esto según tu configuración
+         };
+
+         // Realizar la solicitud POST a la API de GitHub Actions
+         fetch(apiUrl, {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${githubToken}`,
+                 'Accept': 'application/vnd.github.v3+json',
+             },
+             body: JSON.stringify(requestData),
+         })
+             .then(response => {
+                 if (!response.ok) {
+                     throw new Error(`Error: ${response.status} - ${response.statusText}`);
+                 }
+                 console.log('Flujo de trabajo ejecutado con éxito.');
+             })
+             .catch(error => console.error('Error al ejecutar el flujo de trabajo:', error));
+     }
+    </script>
+</body>
+</html>
